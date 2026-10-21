@@ -1,0 +1,381 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Level 2 Flashcards</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one study card centered under a deck picker; a list view shows every card open for checking.
+   Palette, faces and top bar match the Level-2-Reference-Cards repo (styles.css) so students see one family. */
+:root {
+  --bg: #fffcf9; --surface: #ffffff; --surface-2: #f7f1e9; --ink: #1e293b; --ink-soft: #475569;
+  --ink-faint: #64748b; --line: #ece4d8; --accent: #4e89bd; --accent-soft: #e4eef8; --accent-ink: #ffffff;
+  --red: #ad545b; --red-soft: #fbe9ea; --red-line: #f2c6c9; --bad: #ad545b;
+  --code-bg: #1e293b; --code-ink: #e7ecf3; --code-dim: #7f90a8; --code-key: #61afee;
+  --shadow: 0 1px 2px rgba(30, 41, 59, 0.05), 0 10px 26px -16px rgba(30, 41, 59, 0.2);
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1e293b; --surface: #263344; --surface-2: #2c3b4f; --ink: #f1f5f9; --ink-soft: #b8c4d3;
+    --ink-faint: #9aa9bd; --line: #37475c; --accent: #7bb0e0; --accent-soft: #253247; --accent-ink: #141c29;
+    --red: #ed99a0; --red-soft: #3a2830; --red-line: #5c3a42; --bad: #ed99a0;
+    --code-bg: #141c29; --code-ink: #e7ecf3; --code-dim: #7f90a8; --code-key: #61afee;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 26px -16px rgba(0, 0, 0, 0.6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1e293b; --surface: #263344; --surface-2: #2c3b4f; --ink: #f1f5f9; --ink-soft: #b8c4d3;
+  --ink-faint: #9aa9bd; --line: #37475c; --accent: #7bb0e0; --accent-soft: #253247; --accent-ink: #141c29;
+  --red: #ed99a0; --red-soft: #3a2830; --red-line: #5c3a42; --bad: #ed99a0;
+  --code-bg: #141c29; --code-ink: #e7ecf3; --code-dim: #7f90a8; --code-key: #61afee;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 26px -16px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; }
+button { font: inherit; color: inherit; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+a { color: var(--accent); }
+code { font-family: var(--mono); font-size: 0.88em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+kbd { font-family: var(--mono); font-size: 0.8em; background: var(--surface-2); border: 1px solid var(--line); border-bottom-width: 2px; padding: 0 5px; border-radius: 4px; }
+
+.wrap {
+  max-width: 760px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 22px;
+}
+
+/* Top bar, same as the Reference Cards site */
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1px solid var(--line); }
+.brand { font-family: var(--display); font-weight: 700; font-size: 1.02rem; color: var(--ink); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.brand-logo { height: 2.1rem; width: auto; display: block; }
+.topnav { display: flex; gap: 6px; flex-wrap: wrap; }
+.topnav a { font-size: 0.86rem; font-weight: 700; text-decoration: none; padding: 5px 12px; border-radius: 999px; color: var(--ink-soft); }
+.topnav a:hover { color: var(--accent); background: var(--accent-soft); }
+.topnav a[aria-current="page"] { color: var(--accent); background: var(--accent-soft); }
+
+header h1 { font-family: var(--display); font-weight: 800; font-size: clamp(1.7rem, 5vw, 2.3rem); line-height: 1.1; margin: 0 0 6px; text-wrap: balance; letter-spacing: -0.01em; }
+header p { margin: 0; color: var(--ink-soft); max-width: 60ch; }
+.eyebrow { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+
+/* Deck picker */
+.decks { display: flex; flex-wrap: wrap; gap: 8px; }
+.deck {
+  display: grid; gap: 0; text-align: left; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px;
+}
+.deck b { font-family: var(--display); font-weight: 600; font-size: 0.98rem; }
+.deck span { font-size: 0.8rem; color: var(--ink-faint); }
+.deck[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.deck[aria-pressed="true"] span { color: var(--accent-ink); opacity: 0.85; }
+.deck:hover:not([aria-pressed="true"]) { border-color: var(--accent); }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.count { font-family: var(--mono); font-size: 0.85rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.tool {
+  background: transparent; border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px;
+  font-size: 0.86rem; font-weight: 700; color: var(--ink-soft); cursor: pointer;
+}
+.tool:hover { border-color: var(--accent); color: var(--ink); }
+.tool[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
+
+/* The card */
+.stage { perspective: 1400px; }
+.card {
+  display: grid; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; text-align: left;
+  transition: transform 0.45s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d;
+}
+.card.flipped { transform: rotateY(180deg); }
+.face {
+  grid-area: 1 / 1; min-height: 300px; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow);
+  padding: 26px 26px 22px; display: flex; flex-direction: column; gap: 14px; min-width: 0;
+}
+.back { transform: rotateY(180deg); }
+.face-top { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.tag { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+.side { font-family: var(--mono); font-size: 0.72rem; color: var(--ink-faint); }
+.front-main { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.term { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 7vw, 2.8rem); line-height: 1.1; margin: 0; overflow-wrap: anywhere; }
+.term code { font-size: 0.82em; background: none; padding: 0; }
+.question { font-family: var(--display); font-weight: 600; font-size: clamp(1.25rem, 4.2vw, 1.6rem); line-height: 1.3; margin: 0; text-wrap: balance; }
+.say { display: inline-flex; align-self: flex-start; gap: 6px; font-size: 0.84rem; font-weight: 700; color: var(--red); background: var(--red-soft); border: 1px solid var(--red-line); border-radius: 999px; padding: 3px 12px; }
+.hint { font-size: 0.82rem; color: var(--ink-faint); }
+
+.meaning { font-size: 1.15rem; margin: 0; max-width: 58ch; }
+.example { margin: 0; background: var(--code-bg); color: var(--code-ink); font-family: var(--mono); font-size: 0.88rem; line-height: 1.6; padding: 12px 14px; border-radius: 8px; overflow-x: auto; white-space: pre; }
+.label { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin: 0 0 4px; }
+.points { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.show { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--accent-soft); font-size: 0.95rem; }
+.show strong { color: var(--accent); }
+
+.nav { display: flex; justify-content: center; gap: 10px; }
+.nav button {
+  min-width: 120px; padding: 10px 18px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--surface); font-weight: 700; cursor: pointer;
+}
+.nav button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.nav button:disabled { opacity: 0.4; cursor: default; }
+.keys { text-align: center; font-size: 0.8rem; color: var(--ink-faint); margin: 0; }
+
+/* List view */
+.list { display: grid; gap: 12px; }
+.row { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 10px; min-width: 0; }
+.row .term { font-size: 1.35rem; }
+.row .question { font-size: 1.1rem; }
+
+footer { font-size: 0.84rem; color: var(--ink-faint); border-top: 1px solid var(--line); padding-top: 14px; }
+footer p { margin: 0 0 6px; }
+
+@media (max-width: 480px) {
+  .face { padding: 20px 18px 18px; min-height: 340px; }
+  .nav button { min-width: 0; flex: 1; }
+}
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <a class="brand" href="https://jennifert9462.github.io/Level-2-Reference-Cards/"><img class="brand-logo" src="codex-logo.png" alt="CodeX"> Level 2 Reference Cards</a>
+    <nav class="topnav" aria-label="Site"><a href="https://jennifert9462.github.io/Level-2-Reference-Cards/">All cards</a><a href="#" aria-current="page">Flashcards</a></nav>
+  </div>
+
+  <header>
+    <div class="eyebrow">CodeX · Level 2</div>
+    <h1>Level 2 Flashcards</h1>
+    <p>The words from each week, plus practice questions for the badge interview. Answer out loud before you flip. Saying it is the practice.</p>
+  </header>
+
+  <div class="decks" id="decks" role="group" aria-label="Choose a deck"></div>
+
+  <div class="toolbar">
+    <div class="count" id="count" aria-live="polite"></div>
+    <div class="tools">
+      <button class="tool" id="shuffle" type="button">Shuffle</button>
+      <button class="tool" id="listToggle" type="button" aria-pressed="false">See all cards</button>
+    </div>
+  </div>
+
+  <section id="study">
+    <div class="stage">
+      <button class="card" id="card" type="button" aria-label="Flip card">
+        <div class="face front" id="front"></div>
+        <div class="face back" id="back"></div>
+      </button>
+    </div>
+  </section>
+
+  <div class="nav" id="navRow">
+    <button type="button" id="prev">← Back</button>
+    <button type="button" id="flip" class="primary">Flip</button>
+    <button type="button" id="next">Next →</button>
+  </div>
+  <p class="keys" id="keys">Keyboard: <kbd>←</kbd> <kbd>→</kbd> to move, <kbd>Space</kbd> to flip</p>
+
+  <section class="list" id="list" hidden></section>
+
+  <footer>
+    <p>New decks are added each week. Weeks 3–8 are coming.</p>
+    <p>Want the full details? Your Moodle day pages and the Reference Cards site have the steps and examples.</p>
+  </footer>
+</div>
+
+<script>
+// `text` in any field becomes inline code.
+const DECKS = [
+  {
+    id: "words-w1", title: "Week 1 words", sub: "Git, GitHub, first page", kind: "word",
+    cards: [
+      { term: "Terminal", tag: "Tool", meaning: "A window where you type commands for your computer instead of clicking.", example: "Git Bash (Windows)\nTerminal (Mac)\nTerminal inside VS Code" },
+      { term: "pwd · ls · cd", tag: "Commands", meaning: "Find your way around: `pwd` says where you are, `ls` lists what's here, `cd` goes into a folder.", example: "pwd\nls\ncd week-1-checkpoint\ncd ..      (up one level)" },
+      { term: "Git vs GitHub", tag: "Big idea", meaning: "Git is a tool on your computer that keeps your project's history. GitHub is a website that stores a copy online.", example: "Git:    git commit (on your laptop)\nGitHub: github.com/you/repo (online)" },
+      { term: "Repository", tag: "Big idea", meaning: "A project folder that Git is tracking, with its whole history. People call it a \"repo\".", example: "week-1-checkpoint\nsignup-page" },
+      { term: "Clone", tag: "Git command", meaning: "Copy a repo from GitHub onto your computer. It makes the folder for you.", example: "git clone https://github.com/you/week-1-checkpoint.git" },
+      { term: "`git add`", tag: "Save point · 1 of 3", meaning: "Picks which changes go into your next save point. The dot means \"everything I changed\".", example: "git add ." },
+      { term: "`git commit`", tag: "Save point · 2 of 3", meaning: "Makes the save point, with a short message that says what you did. It's only on your computer so far.", example: "git commit -m \"Add about me section\"" },
+      { term: "`git push`", tag: "Save point · 3 of 3", meaning: "Sends your save points to GitHub. Until you push, GitHub doesn't have them.", example: "git push" },
+      { term: "`git status`", tag: "Git command", meaning: "Tells you what's going on. Red files are changed, green files are added, and \"working tree clean\" means everything is saved.", example: "nothing to commit, working tree clean" },
+      { term: "Tag", tag: "HTML", meaning: "A box for content. You open it, put something inside, and close it. The closing tag has a slash.", example: "<h2>About me</h2>\n open   inside   close" },
+      { term: "`href` · `src` · `alt`", tag: "HTML", meaning: "`href` is where a link goes. `src` is where a picture is. `alt` describes the picture for people who can't see it.", example: "<a href=\"https://developer.mozilla.org\">MDN</a>\n<img src=\"images/plant.jpg\" alt=\"A small green plant\">" },
+      { term: "GitHub Pages", tag: "GitHub", meaning: "Turns your repo into a live website with a link anyone can open. Every push updates it.", example: "https://YOUR-USERNAME.github.io/week-1-checkpoint/" },
+      { term: "`.gitignore`", tag: "File", meaning: "A list of files Git should never save, like secret keys or junk files your computer makes.", example: ".DS_Store\n.env\nnode_modules/" }
+    ]
+  },
+  {
+    id: "words-w2", title: "Week 2 words", sub: "Signup page", kind: "word",
+    cards: [
+      { term: "Semantic HTML", tag: "HTML", meaning: "Tags that say what each part of the page is for. They help browsers, screen readers and other developers.", example: "<header>  <nav>  <main>  <section>  <footer>" },
+      { term: "`div`", tag: "HTML", meaning: "A box with no label. Use it to group things for styling when no semantic tag fits.", example: "<div class=\"card\">…</div>" },
+      { term: "Jump link", tag: "HTML", meaning: "A link that jumps to a part of the same page. The `href` after the # must match an `id` exactly.", example: "<a href=\"#join\">Join</a>\n<section id=\"join\">…</section>" },
+      { term: "Stylesheet", tag: "CSS", meaning: "A separate file of CSS rules. A `link` tag in the head connects it to your page.", example: "<link rel=\"stylesheet\" href=\"style.css\">" },
+      { term: "Box model", tag: "CSS", meaning: "Every element is a box: content in the middle, then padding, then border, then margin on the outside.", example: "margin   space outside the border\nborder   the line around the box\npadding  space inside the border\ncontent  the text or image" },
+      { term: "DevTools", tag: "Tool", meaning: "The browser's built-in tools for looking inside your page and seeing its boxes and styles.", example: "Right-click → Inspect" },
+      { term: "Label", tag: "Forms", meaning: "Visible text that says what to type. The label's `for` matches the input's `id`, so clicking it puts the cursor in the box.", example: "<label for=\"email\">Email</label>\n<input type=\"email\" id=\"email\" name=\"email\">" },
+      { term: "Validation", tag: "Forms", meaning: "Checking answers before the form is sent. `required` means it can't be empty. `type=\"email\"` checks it looks like an email.", example: "<input type=\"email\" id=\"email\" required>" },
+      { term: "Placeholder", tag: "Forms", meaning: "A hint inside a box that disappears when you type. It never replaces a label.", example: "placeholder=\"you@example.com\"" },
+      { term: "Flexbox", tag: "CSS", meaning: "Put `display: flex` on a container, and the boxes directly inside it line up in a row (or a column).", example: ".cards {\n  display: flex;\n  gap: 16px;\n  flex-wrap: wrap;\n}" },
+      { term: "Block vs inline", tag: "CSS", meaning: "Block elements start on a new line and take the full width. Inline elements sit inside a line and are only as wide as their content.", example: "block:  div  p  h2  section\ninline: span  a  strong" },
+      { term: "Hero", tag: "Design", meaning: "The big banner at the top of a page: a headline, one sentence and a button.", example: "<section class=\"hero\">…</section>" },
+      { term: "Call to action", tag: "Design", meaning: "A link or button that tells visitors what to do next. People shorten it to CTA.", example: "<a class=\"cta\" href=\"#join\">Join the club</a>" },
+      { term: "Contrast", tag: "Design", meaning: "How much text stands out from its background. DevTools shows a contrast ratio when you click a color square.", example: "white text on dark green  ✅\npale yellow on white      ⚠️" }
+    ]
+  },
+  {
+    id: "interview-w2", title: "Week 2 interview", sub: "Fri, Oct 30", kind: "question",
+    cards: [
+      { tag: "Git and your live site", q: "What do `git add`, `git commit` and `git push` each do?",
+        points: ["`add` picks the changes for the next save point.", "`commit` makes the save point with a message. It's only on your computer.", "`push` sends your commits to GitHub."],
+        show: "Run `git status` between the steps: red, then green, then \"working tree clean\"." },
+      { tag: "Git and your live site", q: "How does a change get from your laptop onto your live site?",
+        points: ["Save the file, then add, commit and push to GitHub.", "GitHub Pages builds the site from `main`. That can take a minute or two.", "Hard refresh to see it: Ctrl + Shift + R."],
+        show: "Your Pages link in the browser after a push." },
+      { tag: "Your page", q: "Point to your `header`, `nav`, `main`, a `section` and the `footer`. Why use these instead of `div`?",
+        points: ["Each tag says what that part of the page is for.", "Screen readers, browsers and other developers can understand the page.", "A `div` is a box with no label."],
+        show: "Point to each tag in `index.html`. There's only one `main`." },
+      { tag: "Your page", q: "Inspect one box in DevTools. Where are its margin, border, padding and content?",
+        points: ["Content is the text or image in the middle.", "Padding is inside the border. Margin is outside it.", "DevTools shades margin orange and padding green."],
+        show: "Right-click → Inspect, hover the element, then open the Computed tab." },
+      { tag: "Your page", q: "How does a label connect to its input? How can you prove it's connected?",
+        points: ["The label's `for` matches the input's `id`.", "Clicking the label puts the cursor in the box.", "Screen readers read the label out loud."],
+        show: "Click a label on your page and watch the cursor jump." },
+      { tag: "Your page", q: "What do `required` and `type=\"email\"` do?",
+        points: ["`required`: the browser won't send the form if the box is empty.", "`type=\"email\"`: the browser checks that it looks like an email.", "Both are validation that the browser does for you."],
+        show: "Submit an empty form, then try `hello` in the email box." },
+      { tag: "Your page", q: "Which element is your flex container, and which elements line up inside it?",
+        points: ["The container is the element with `display: flex`, like `.cards` or `form`.", "Only the boxes directly inside it line up.", "`gap` adds space between them. `flex-direction: column` stacks them."],
+        show: "Find `display: flex` in `style.css`, then make the window narrow." },
+      { tag: "Your page", q: "Point to a block element and an inline element on your page. What's the difference?",
+        points: ["Block starts on a new line and takes the full width (`div`, `p`, `section`).", "Inline sits inside the line and is only as wide as its words (`span`, `a`, `strong`)."],
+        show: "Your \"How this page is built\" section with the dashed outlines." },
+      { tag: "Your page", q: "After you submit your form, where do the answers go? Why should you never type a real password into it?",
+        points: ["The form has nowhere to send them, so the browser puts them in the URL.", "URLs are not secrets. They end up in history, screenshots and logs.", "Real sites send passwords a different, protected way."],
+        show: "Submit fake answers and point at the address bar." },
+      { tag: "Solving a problem", q: "A nav link doesn't jump to its section. What would you check, and in what order?",
+        points: ["Does the `href` start with `#`?", "Does the section's `id` match it exactly, including capital letters?", "Is the file saved and pushed? Then hard refresh."],
+        show: "Put the `href` and the `id` side by side in your code." },
+      { tag: "Solving a problem", q: "Your live site has no colors, but it looks fine on your computer. What could be wrong?",
+        points: ["The `link` tag must say `href=\"style.css\"` exactly: lowercase, no `/` at the start.", "Was `style.css` pushed? Check the file list on GitHub.", "Wait a minute, then hard refresh."],
+        show: "Your repo's file list on GitHub." },
+      { tag: "Live change practice", q: "Practice: \"Make the CTA button blue.\" Say your plan before you touch anything.",
+        points: ["Which file: `style.css`, the `.cta` rule.", "What changes: `background-color: gold` becomes a blue.", "How it gets live: save, `git status`, add, commit, push, then check the Pages link."],
+        show: "Do it for real, then put it back." },
+      { tag: "Live change practice", q: "Practice: \"Change the hero headline.\" Say your plan before you touch anything.",
+        points: ["Which file: `index.html`, the `h2` inside `.hero`.", "What changes: the words between the tags.", "How it gets live: save, add, commit, push, wait, hard refresh."],
+        show: "If it isn't live yet, explain why while you wait." }
+    ]
+  }
+];
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const fmt = (s) => esc(s).replace(/`([^`]+)`/g, "<code>$1</code>");
+
+let deck = DECKS[0], order = [], i = 0, flipped = false, listView = false;
+
+function setDeck(id, keepHash) {
+  deck = DECKS.find((d) => d.id === id) || DECKS[0];
+  order = deck.cards.map((_, n) => n);
+  i = 0; flipped = false;
+  if (!keepHash) { try { history.replaceState(null, "", "#" + deck.id); } catch (e) {} }
+  try { localStorage.setItem("l2-flash-deck", deck.id); } catch (e) {}
+  render();
+}
+
+function frontHTML(c) {
+  if (deck.kind === "word") {
+    return `<div class="face-top"><span class="tag">${esc(c.tag)}</span><span class="side">Word</span></div>
+      <div class="front-main"><p class="term">${fmt(c.term)}</p></div>
+      <span class="hint">Say what it means, then flip.</span>`;
+  }
+  return `<div class="face-top"><span class="tag">${esc(c.tag)}</span><span class="side">Question</span></div>
+    <div class="front-main"><p class="question">${fmt(c.q)}</p><span class="say">🎤 Answer out loud first</span></div>
+    <span class="hint">Then flip to check what a good answer includes.</span>`;
+}
+
+function backHTML(c) {
+  if (deck.kind === "word") {
+    return `<div class="face-top"><span class="tag">${fmt(c.term)}</span><span class="side">Meaning</span></div>
+      <p class="meaning">${fmt(c.meaning)}</p>
+      <div><p class="label">Example</p><pre class="example">${esc(c.example)}</pre></div>`;
+  }
+  return `<div class="face-top"><span class="tag">${esc(c.tag)}</span><span class="side">A good answer includes</span></div>
+    <ul class="points">${c.points.map((p) => `<li>${fmt(p)}</li>`).join("")}</ul>
+    <p class="show"><strong>Show it:</strong> ${fmt(c.show)}</p>`;
+}
+
+function render() {
+  $("decks").innerHTML = DECKS.map((d) =>
+    `<button class="deck" type="button" data-id="${d.id}" aria-pressed="${d.id === deck.id}"><b>${esc(d.title)}</b><span>${esc(d.sub)} · ${d.cards.length} cards</span></button>`
+  ).join("");
+  $("listToggle").setAttribute("aria-pressed", String(listView));
+  $("listToggle").textContent = listView ? "Back to flashcards" : "See all cards";
+  $("shuffle").hidden = listView;
+  $("study").hidden = listView; $("navRow").hidden = listView; $("keys").hidden = listView;
+  $("list").hidden = !listView;
+
+  if (listView) {
+    $("count").textContent = `${deck.cards.length} cards`;
+    $("list").innerHTML = deck.cards.map((c) =>
+      `<article class="row">${deck.kind === "word"
+        ? `<p class="term">${fmt(c.term)}</p><p class="meaning">${fmt(c.meaning)}</p><pre class="example">${esc(c.example)}</pre>`
+        : `<span class="tag">${esc(c.tag)}</span><p class="question">${fmt(c.q)}</p><ul class="points">${c.points.map((p) => `<li>${fmt(p)}</li>`).join("")}</ul><p class="show"><strong>Show it:</strong> ${fmt(c.show)}</p>`
+      }</article>`).join("");
+    return;
+  }
+  const c = deck.cards[order[i]];
+  $("front").innerHTML = frontHTML(c);
+  $("back").innerHTML = backHTML(c);
+  $("card").classList.toggle("flipped", flipped);
+  $("front").setAttribute("aria-hidden", String(flipped));
+  $("back").setAttribute("aria-hidden", String(!flipped));
+  $("count").textContent = `Card ${i + 1} of ${order.length}`;
+  $("prev").disabled = i === 0;
+  $("next").disabled = i === order.length - 1;
+  $("flip").textContent = flipped ? "Flip back" : "Flip";
+}
+
+function flip() { flipped = !flipped; render(); }
+function go(step) {
+  const n = i + step;
+  if (n < 0 || n >= order.length) return;
+  i = n; flipped = false; render();
+}
+
+$("decks").addEventListener("click", (e) => {
+  const b = e.target.closest(".deck");
+  if (b) setDeck(b.dataset.id);
+});
+$("card").addEventListener("click", flip);
+$("flip").addEventListener("click", flip);
+$("prev").addEventListener("click", () => go(-1));
+$("next").addEventListener("click", () => go(1));
+$("shuffle").addEventListener("click", () => {
+  for (let n = order.length - 1; n > 0; n--) {
+    const r = Math.floor(Math.random() * (n + 1));
+    [order[n], order[r]] = [order[r], order[n]];
+  }
+  i = 0; flipped = false; render();
+});
+$("listToggle").addEventListener("click", () => { listView = !listView; render(); });
+document.addEventListener("keydown", (e) => {
+  if (listView || e.target.closest(".deck, .tool")) return;
+  if (e.key === "ArrowRight") go(1);
+  else if (e.key === "ArrowLeft") go(-1);
+  else if ((e.key === " " || e.key === "Enter") && !e.target.closest("button")) { e.preventDefault(); flip(); }
+});
+
+let start = location.hash.slice(1);
+if (!DECKS.some((d) => d.id === start)) {
+  try { start = localStorage.getItem("l2-flash-deck") || ""; } catch (e) { start = ""; }
+}
+setDeck(start, !!location.hash);
+</script>
+
+</body></html>
