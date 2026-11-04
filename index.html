@@ -182,7 +182,7 @@ footer p { margin: 0 0 6px; }
   <section class="list" id="list" hidden></section>
 
   <footer>
-    <p>New decks are added each week. Weeks 3–8 are coming.</p>
+    <p>New decks are added each week. Weeks 4–8 are coming.</p>
     <p>Want the full details? Your Moodle day pages and the Reference Cards site have the steps and examples.</p>
   </footer>
 </div>
@@ -269,6 +269,34 @@ const DECKS = [
       { tag: "Live change practice", q: "Practice: \"Change the hero headline.\" Say your plan before you touch anything.",
         points: ["Which file: `index.html`, the `h2` inside `.hero`.", "What changes: the words between the tags.", "How it gets live: save, add, commit, push, wait, hard refresh."],
         show: "If it isn't live yet, explain why while you wait." }
+    ]
+  },
+  {
+    id: "words-w3", title: "Week 3 words", sub: "JavaScript and your food truck", kind: "word",
+    cards: [
+      { term: "Variable", tag: "Day 1 · Basics", meaning: "A named box that holds a value. A good name says what's inside: `truckName`, not `x`.", example: "const truckName = \"Taco Rocket\";" },
+      { term: "`const` vs `let`", tag: "Day 1 · Basics", meaning: "`const` keeps the same value. `let` can change later. Use `const` unless you know the value will change.", example: "const truckName = \"Taco Rocket\";\nlet ordersToday = 0;\nordersToday = ordersToday + 1;" },
+      { term: "string · number · boolean", tag: "Day 1 · Basics", meaning: "Three types of value. Text goes in quotes. Numbers and true/false don't.", example: "\"Taco Rocket\"   string\n4.5             number\ntrue            boolean" },
+      { term: "`typeof`", tag: "Day 1 · Basics", meaning: "Tells you a value's type. Handy when something acts strange, like a total that glues digits together.", example: "typeof \"3\"   →  \"string\"\ntypeof 3     →  \"number\"\n\"3\" + 1      →  \"31\"" },
+      { term: "Array", tag: "Day 1 · Lists", meaning: "A list in square brackets. Each item has an index, and the first one is 0.", example: "const menu = [\"taco\", \"burrito\", \"nachos\"];\nmenu[0]                →  \"taco\"\nmenu.length            →  3\nmenu[menu.length - 1]  →  \"nachos\"" },
+      { term: "Object", tag: "Day 1 · Objects", meaning: "One thing with details. Each detail is a property: a name, a colon and a value.", example: "const item = { name: \"Taco\", price: 4.5 };\nitem.name       →  \"Taco\"\nitem[\"price\"]   →  4.5" },
+      { term: "Function and `return`", tag: "Day 1 · Functions", meaning: "Steps you can reuse. `return` hands the answer back, so you can save it. `console.log` only prints it.", example: "function addTip(price, tip) {\n  return price + tip;\n}\naddTip(10, 2)   →  12" },
+      { term: "Method", tag: "Day 2 · Objects", meaning: "A function stored inside an object. Call it with a dot and parentheses.", example: "const truck = {\n  name: \"Taco Rocket\",\n  describe: function () {\n    return \"Welcome to \" + this.name + \"!\";\n  },\n};\ntruck.describe()" },
+      { term: "`this`", tag: "Day 2 · Objects", meaning: "Inside a regular method, `this` is the object to the left of the dot. Same code, different truck.", example: "tacoTruck.describe()   this = tacoTruck\nphoTruck.describe()    this = phoTruck" },
+      { term: "Arrow function", tag: "Day 2 · Functions", meaning: "A shorter way to write a function. It doesn't get its own `this`, so for a method that uses `this`, use `function`.", example: "() => { ... }        arrow\nfunction () { ... }  regular" },
+      { term: "JSON", tag: "Day 2 · JSON", meaning: "Data written as text. It looks like an object, but it's a string, so it can be saved or sent to another computer.", example: "'{\"name\": \"Taco\", \"price\": 4.5}'" },
+      { term: "The 4 JSON rules", tag: "Day 2 · JSON", meaning: "Names in double quotes · text in double quotes · commas between items · no comma after the last one.", example: "✅ {\"name\": \"Taco\", \"price\": 4.5}\n❌ {name: \"Taco\", \"price\": 4.5,}" },
+      { term: "`JSON.parse`", tag: "Day 2 · JSON", meaning: "Turns JSON text into real data you can use. Broken JSON makes it throw a red `SyntaxError`.", example: "const item = JSON.parse(text);\nitem.price   →  4.5" },
+      { term: "`JSON.stringify`", tag: "Day 2 · JSON", meaning: "Turns data into JSON text, ready to save or send. Add `null, 2` to indent it so it's easy to read.", example: "JSON.stringify(item)\nJSON.stringify(item, null, 2)" },
+      { term: "`try` / `catch`", tag: "Day 3 · JSON", meaning: "Try something that might fail. If it fails, the `catch` part runs instead of the page breaking.", example: "try {\n  menu = JSON.parse(input.value);\n} catch (error) {\n  message.textContent = \"Check your quotes and commas.\";\n}" },
+      { term: "DOM", tag: "Day 3 · The page", meaning: "The page as JavaScript sees it. JavaScript can grab any element and change it.", example: "document.getElementById(\"menu-list\")\ndocument.querySelector(\"#menu-list\")" },
+      { term: "`textContent`", tag: "Day 3 · The page", meaning: "Puts plain text inside an element. House rule: text someone typed always goes in with `textContent`, never `innerHTML`.", example: "message.textContent = \"Order up!\";" },
+      { term: "`createElement` + `appendChild`", tag: "Day 3 · The page", meaning: "Make a new element, then put it on the page inside another one.", example: "const li = document.createElement(\"li\");\nli.textContent = \"Taco\";\nlist.appendChild(li);" },
+      { term: "`preventDefault`", tag: "Day 3 · Forms", meaning: "Stops a form from reloading the page when it's submitted, so your JavaScript's work isn't wiped.", example: "form.addEventListener(\"submit\", function (event) {\n  event.preventDefault();\n});" },
+      { term: "`for` loop", tag: "Day 4 · Loops", meaning: "Repeats code, counting with `i`. Start at 0, keep going while `i` is less than the length, add 1 each time.", example: "for (let i = 0; i < menu.length; i++) {\n  console.log(menu[i].name);\n}" },
+      { term: "`forEach`", tag: "Day 4 · Loops", meaning: "Runs code once for each item and hands you the item. No counting.", example: "menu.forEach(function (item) {\n  console.log(item.name);\n});" },
+      { term: "Accumulator", tag: "Day 4 · Loops", meaning: "A variable that collects a result as a loop runs. Make it before the loop, and add to it inside.", example: "let total = 0;\nfor (let i = 0; i < menu.length; i++) {\n  total = total + menu[i].price;\n}" },
+      { term: "`map`", tag: "Day 5 · Loops", meaning: "Makes a new list. Whatever you `return` for each item goes into the new list.", example: "const doubled = sizes.map(function (size) {\n  return size * 2;\n});" }
     ]
   }
 ];
