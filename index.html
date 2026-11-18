@@ -182,7 +182,7 @@ footer p { margin: 0 0 6px; }
   <section class="list" id="list" hidden></section>
 
   <footer>
-    <p>New decks are added each week. Weeks 5–8 are coming.</p>
+    <p>New decks are added each week. Weeks 6–8 are coming.</p>
     <p>Want the full details? Your Moodle day pages and the Reference Cards site have the steps and examples.</p>
   </footer>
 </div>
@@ -363,6 +363,36 @@ const DECKS = [
       { tag: "Live change practice", q: "Practice: \"Give the buttons a different style.\" Say your plan before you touch anything.",
         points: ["Which file: `index.html`, the button's classes.", "What changes: for example, `btn-dark` becomes `btn-outline-dark`. Look it up in the docs.", "Check it, then save, add, commit, push, wait and hard refresh."],
         show: "The Bootstrap buttons page next to your code." }
+    ]
+  },
+  {
+    id: "words-w5", title: "Week 5 words", sub: "APIs, fetch and your recipe box", kind: "word",
+    cards: [
+      { term: "API", tag: "Day 1 · Requests", meaning: "A set of addresses a program can send requests to. Its docs tell you what to send.", example: "Open-Meteo   weather\nPokéAPI      Pokémon\nDummyJSON    practice recipes" },
+      { term: "Endpoint", tag: "Day 1 · Requests", meaning: "One of an API's addresses. It's everything before the `?`.", example: "https://api.open-meteo.com/v1/forecast\nhttps://dummyjson.com/recipes/add" },
+      { term: "Request and response", tag: "Day 1 · Big idea", meaning: "You send a request: a method, a URL, and sometimes headers and a body. You get back a response: a status, headers and a body.", example: "request:   GET https://api.open-meteo.com/v1/forecast?...\nresponse:  200 OK  { \"current\": { \"temperature_2m\": 52.3 } }" },
+      { term: "GET · POST · PUT · DELETE", tag: "Day 1 · REST", meaning: "The method says what to do with the URL. The docs say which methods each URL accepts.", example: "GET     read it (most of this week)\nPOST    usually, add a new one\nPUT     change it\nPATCH   change part of it\nDELETE  remove it" },
+      { term: "Query parameter", tag: "Day 1 · Requests", meaning: "A detail after the `?`, written `key=value`. Each `&` adds another one. Your API tool shows them in the Params tab.", example: "...forecast?latitude=30.27&longitude=-97.74\n\nlatitude=30.27    key=value\n&                 \"and another detail\"" },
+      { term: "Status code", tag: "Day 1 · Response", meaning: "A number that says how the request went. 200s are good. 400s mean something in your request is off.", example: "200  OK\n201  Created\n400  Bad request (check the URL)\n403  Not allowed (check your key)\n404  Not found\n429  Too many requests (wait a minute)" },
+      { term: "Headers", tag: "Day 1 · Request + response", meaning: "Notes that travel with a request or a response. A request header can carry your key. A response header like `Content-Type` says what kind of data came back.", example: "Content-Type: application/json\nx-goog-api-key: {{gemini_key}}" },
+      { term: "Body", tag: "Day 1 · Request + response", meaning: "The data itself, usually JSON. A response body is the answer. A request body is what you send with a POST.", example: "{\n  \"current\": {\n    \"temperature_2m\": 52.3,\n    \"wind_speed_10m\": 8.1\n  }\n}" },
+      { term: "Collection", tag: "Day 1 · API tool", meaning: "A folder of saved requests in Postman or Bruno.", example: "Week 5\n  Weather\n  Find my city\n  Ask Gemini\n  Add a dish" },
+      { term: "`fetch`", tag: "Day 1 · JavaScript", meaning: "Sends a request from JavaScript. It's the JavaScript twin of the Send button.", example: "const response = await fetch(url);" },
+      { term: "Promise", tag: "Day 1 · JavaScript", meaning: "What `fetch` gives back right away, like an order ticket. The answer comes later.", example: "fetch(url)         →  Promise {<pending>}\nawait fetch(url)   →  the response" },
+      { term: "`async` / `await`", tag: "Day 1 · JavaScript", meaning: "`await` waits for something slow without freezing the page. It only works inside an `async` function.", example: "async function getWeather() {\n  const response = await fetch(url);\n  const data = await response.json();\n  console.log(data);\n}" },
+      { term: "`response.json()`", tag: "Day 1 · JavaScript", meaning: "Reads the response body and turns the JSON into data you can use. It takes time too, so it needs `await`.", example: "const data = await response.json();\nconsole.log(data);   // look before you use it" },
+      { term: "Path", tag: "Day 1 · JavaScript", meaning: "The dots and brackets that lead to one value. Copy the names from the console. One wrong letter gives `undefined`.", example: "data.current.temperature_2m\ndata.candidates[0].content.parts[0].text" },
+      { term: "POST", tag: "Day 2 · Requests", meaning: "A request that carries data in its body. What it does with the data depends on the API.", example: "Gemini:     POST a question  →  gets an answer\nDummyJSON:  POST a dish      →  adds it" },
+      { term: "`201 Created`", tag: "Day 2 · Response", meaning: "The status that says \"I made a new one.\" To check it really saved, send a GET for it afterward.", example: "POST /recipes/add  →  201, \"id\": 51\nGET  /recipes/51   →  404  (DummyJSON only pretends)" },
+      { term: "API key", tag: "Day 2 · Keys", meaning: "A password for an API. It says \"this request is from me\", and your account pays. Never put it in a file you push to GitHub.", example: "✅ {{gemini_key}} in a secret variable\n❌ the key itself in script.js or notes.md" },
+      { term: "Environment variable", tag: "Day 2 · API tool", meaning: "A saved value in your API tool that you use by name, in double curly braces. Mark a key as secret so it shows as dots.", example: "Environment:  Week 5 secrets\ngemini_key =  ••••••••\nHeader:       x-goog-api-key  {{gemini_key}}" },
+      { term: "Docs", tag: "Day 3 · Reading docs", meaning: "The API's instructions: its endpoints, the parameters you can add, and what comes back. Try a change in your API tool first, then in your code.", example: "&wind_speed_unit=mph\n&timezone=auto\n&current=temperature_2m,precipitation" },
+      { term: "`response.ok`", tag: "Day 4 · Errors", meaning: "`true` if the status is good (200–299), `false` for errors like 404. Check it before you use the data, and `return` if it's false.", example: "if (!response.ok) {\n  statusText.textContent = \"No recipe with that number.\";\n  return;\n}" },
+      { term: "`try` / `catch` with `fetch`", tag: "Day 4 · Errors", meaning: "With no internet, `fetch` can't get any answer and throws an error. `catch` shows a friendly message instead.", example: "try {\n  const response = await fetch(url);\n  ...\n} catch (error) {\n  statusText.textContent = \"Can't reach the server.\";\n}" },
+      { term: "Loading and error states", tag: "Day 4 · Errors", meaning: "What the user sees while waiting, and what they see when something goes wrong.", example: "Loading...\nNo recipe with that number. Try 1 to 50.\nCan't reach the recipe server. Check your internet." },
+      { term: "Network tab", tag: "Day 4 · Tool", meaning: "The DevTools tab that lists every request. Slow it down or go offline to test your messages. Click a row to see its method, status and payload.", example: "DevTools → Network\nNo throttling · Slow 4G · Offline" },
+      { term: "`fetch` options", tag: "Day 5 · POST", meaning: "A second part for `fetch` that a POST needs: the method, a header that says the body is JSON, and the body turned into JSON text.", example: "await fetch(\"https://dummyjson.com/recipes/add\", {\n  method: \"POST\",\n  headers: { \"Content-Type\": \"application/json\" },\n  body: JSON.stringify({ name: dishInput.value })\n});" },
+      { term: "Safe rendering", tag: "Day 5 · The page", meaning: "Text from an API or a user goes on the page with `textContent`. Tags show up as plain text and never turn into HTML.", example: "dish name: <b>Hi</b>\n\ntextContent  →  <b>Hi</b>  (plain text) ✅\ninnerHTML    →  Hi in bold            ❌" }
     ]
   }
 ];
