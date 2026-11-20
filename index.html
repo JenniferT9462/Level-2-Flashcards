@@ -182,7 +182,7 @@ footer p { margin: 0 0 6px; }
   <section class="list" id="list" hidden></section>
 
   <footer>
-    <p>New decks are added each week. Weeks 6–8 are coming.</p>
+    <p>New decks are added each week.</p>
     <p>Want the full details? Your Moodle day pages and the Reference Cards site have the steps and examples.</p>
   </footer>
 </div>
@@ -393,6 +393,83 @@ const DECKS = [
       { term: "Network tab", tag: "Day 4 · Tool", meaning: "The DevTools tab that lists every request. Slow it down or go offline to test your messages. Click a row to see its method, status and payload.", example: "DevTools → Network\nNo throttling · Slow 4G · Offline" },
       { term: "`fetch` options", tag: "Day 5 · POST", meaning: "A second part for `fetch` that a POST needs: the method, a header that says the body is JSON, and the body turned into JSON text.", example: "await fetch(\"https://dummyjson.com/recipes/add\", {\n  method: \"POST\",\n  headers: { \"Content-Type\": \"application/json\" },\n  body: JSON.stringify({ name: dishInput.value })\n});" },
       { term: "Safe rendering", tag: "Day 5 · The page", meaning: "Text from an API or a user goes on the page with `textContent`. Tags show up as plain text and never turn into HTML.", example: "dish name: <b>Hi</b>\n\ntextContent  →  <b>Hi</b>  (plain text) ✅\ninnerHTML    →  Hi in bold            ❌" }
+    ]
+  },
+  {
+    id: "interview-w6", title: "Week 6 interview", sub: "Badge 3 · Mon, Nov 30", kind: "question",
+    cards: [
+      { tag: "1 · The request", q: "Why is Ask Gemini a POST and not a GET?",
+        points: ["It sends data: your question, in a body.", "A GET only asks for something at an address. In `fetch`, a GET can't have a body.", "The Gemini docs say this endpoint takes a POST."],
+        show: "The method menu in your API tool." },
+      { tag: "1 · The request", q: "Point to the endpoint. Where is the model name in it?",
+        points: ["The whole URL is the endpoint. There's no `?` part.", "The model name is after `models/` and before `:generateContent`.", "Ours is `gemini-flash-lite-latest`."],
+        show: "Your URL, pointing at the model name." },
+      { tag: "1 · The request", q: "How would you try a different model? What could go wrong?",
+        points: ["Change only the model name in the URL, and send again.", "A wrong or retired name gives `404`.", "A busy model can give `503`. Wait and try again."],
+        show: "The model name in the URL." },
+      { tag: "2 · Headers", q: "What is a header? Name the two headers in Ask Gemini.",
+        points: ["A note that travels with the request, separate from the body.", "`Content-Type: application/json` says the body is JSON.", "`x-goog-api-key` carries your key, so Gemini knows who's asking."],
+        show: "Your Headers tab." },
+      { tag: "2 · Headers", q: "The key header is turned off, and you click Send. What happens, and how do you fix it?",
+        points: ["You get an error status instead of `200`, like `403`.", "Gemini doesn't know who's asking, so it says no.", "Turn the header back on, check it says `{{gemini_key}}`, and send again."],
+        show: "Uncheck the header, Send, read the error, then turn it back on." },
+      { tag: "2 · Headers", q: "Why does your header say `{{gemini_key}}` and not the key itself?",
+        points: ["It's a variable: the API tool swaps in the real key when it sends.", "It's marked secret, so it shows as dots.", "The key never shows on screen, in shared requests or in your notes."],
+        show: "Your environment (top right), with the key as dots." },
+      { tag: "3 · The body", q: "Read your body out loud. What's each part?",
+        points: ["`contents`: a list of messages.", "`parts`: the pieces of one message.", "`text`: your question."],
+        show: "The Body tab." },
+      { tag: "3 · The body", q: "Why does the body use square brackets?",
+        points: ["`contents` and `parts` are arrays: lists.", "A conversation can have many messages, and a message can have many parts.", "Ours has one of each, so it's `[ { ... } ]`."],
+        show: "The `[` and `]` in your body." },
+      { tag: "3 · The body", q: "How would you get the answer as 3 bullet points? What else changes?",
+        points: ["Change only the `text`, like \"Answer in 3 bullet points.\"", "The method, URL and headers stay the same.", "Send again and check the answer."],
+        show: "Do it for real, then put it back." },
+      { tag: "4 · The response", q: "Read `candidates[0].content.parts[0].text` out loud. What does each piece mean?",
+        points: ["`candidates`: a list of answers. `[0]` is the first one.", "`content`: what that answer says.", "`parts[0].text`: the first part, and its text."],
+        show: "Follow the path in your response body, one level at a time." },
+      { tag: "4 · The response", q: "Why `[0]` and not `.0` or nothing?",
+        points: ["`candidates` and `parts` are arrays.", "You pick an item from an array with square brackets and a number.", "Counting starts at 0, so `[0]` is the first."],
+        show: "The `[` after `candidates` in the response." },
+      { tag: "4 · The response", q: "What would `403`, `404`, `429` and `503` each tell you?",
+        points: ["`403`: the key is missing or wrong.", "`404`: the URL or model name is wrong.", "`429`: too many requests, wait a minute. `503`: the model is busy, try again."],
+        show: "The status next to Send." },
+      { tag: "4 · The response", q: "You get `200 OK`, but your code shows `undefined`. What would you check?",
+        points: ["The request worked, so the path is wrong.", "`console.log(data)` and compare it to the response, one level at a time.", "One wrong letter or a missing `[0]` gives `undefined`."],
+        show: "Your response body next to the path in your code." },
+      { tag: "5 · Keeping the key secret", q: "Where does your key live right now? Where must it never be?",
+        points: ["In a secret variable in my API tool, and in `config.js`, which Git ignores.", "Never in a file I push: `script.js`, `notes.md`, a README.", "Never in a screenshot, chat or screen share."],
+        show: "`git status`: `config.js` isn't listed." },
+      { tag: "5 · Keeping the key secret", q: "What does `.gitignore` do? How do you check it's working?",
+        points: ["It lists files Git must never commit.", "Ours lists `config.js`.", "Check: `git status` doesn't show it, and it's gray in VS Code."],
+        show: "Your `.gitignore`, then `git status`." },
+      { tag: "5 · Keeping the key secret", q: "`config.js` never reaches GitHub. So why can't Ask the Chef go on GitHub Pages?",
+        points: ["The browser still needs the key to send the request.", "Anyone using the page can see it in DevTools → Network → Headers.", "On a public site, every visitor could copy it."],
+        show: "DevTools → Network → the `generateContent` row → Headers." },
+      { tag: "5 · Keeping the key secret", q: "What will the proxy do in Week 7?",
+        points: ["A small server keeps the key.", "The page sends only the question to the proxy. The proxy adds the key and asks Gemini.", "Only the answer comes back, so the key never reaches the browser."],
+        show: "Draw it: page → proxy → Gemini." },
+      { tag: "5 · Keeping the key secret", q: "API key, OAuth, JWT: one sentence each.",
+        points: ["API key: one secret string that says \"this is my account\".", "OAuth: lets an app act for a user without their password, like \"Sign in with Google\".", "JWT: a signed token you get after logging in and show with each request. It expires."],
+        show: "Your `auth-notes.md`." },
+      { tag: "5 · Keeping the key secret", q: "You pushed your key by mistake. What do you do?",
+        points: ["Tell your instructor.", "Delete that key in AI Studio and make a new one.", "Deleting the file isn't enough: the key is still in your Git history."],
+        show: "Where keys are listed in AI Studio." },
+      { tag: "6 · From your API tool to fetch", q: "Where does each part of your request go in `fetch`?",
+        points: ["The URL goes first.", "Then the options: `method`, `headers`, `body`.", "The body goes through `JSON.stringify`."],
+        show: "Your API tool next to `week-6/day-2/script.js`." },
+      { tag: "6 · From your API tool to fetch", q: "Why `JSON.stringify` around the body?",
+        points: ["A request can only carry text.", "It turns your object into JSON text.", "`response.json()` does the opposite: text back into an object."],
+        show: "The `body:` line in your `fetch`." },
+      { tag: "6 · From your API tool to fetch", q: "After `fetch`, what are the steps to show the AI's text on the page?",
+        points: ["Check `response.ok`.", "`const data = await response.json();`", "Put `data.candidates[0].content.parts[0].text` in `textContent`."],
+        show: "Steps 2 and 3 in `week-6/day-2/script.js`." },
+      { tag: "Live change practice", q: "Practice: \"Ask a different question, in under 20 words.\" Say your plan first.",
+        points: ["Where: the `text` in the Body tab.", "What: a new question, plus \"Answer in under 20 words.\"", "Send, then point at the new text in the response."],
+        show: "Do it for real." },
+      { tag: "Live change practice", q: "Practice: \"Say the fetch for this request, with `MY_KEY` as a placeholder.\"",
+        points: ["`await fetch(url, {` with `method: \"POST\"`.", "Headers: `Content-Type` and `x-goog-api-key: MY_KEY`.", "`body: JSON.stringify({ contents: [{ parts: [{ text: \"...\" }] }] })`."],
+        show: "Type it in a blank file, without looking." }
     ]
   }
 ];
